@@ -1,0 +1,46 @@
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+import java.net.ServerSocket;
+
+class server1 {
+	
+	public static void main(String args[]) throws IOException{
+		
+		int num, temp;
+		ServerSocket s1=new ServerSocket(8080);
+		Socket ss=s1.accept();
+		Scanner sc=new Scanner(ss.getInputStream());
+		num = sc.nextInt();
+		
+		temp=num*2;
+		PrintStream p=new PrintStream(ss.getOutputStream());
+		p.println(temp);
+		
+	}
+
+}
+
+public class client {
+	
+	public static void main (String arg[]) throws UnknownHostException, IOException{
+		
+		int number, temp;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Type a number: ");
+		number = sc.nextInt();
+		
+		Socket s=new Socket("127.0.0.1",8080);
+		PrintStream p=new PrintStream(s.getOutputStream());
+		p.println(number);
+		
+		Scanner sc1=new Scanner(s.getInputStream());
+		temp = sc1.nextInt();
+		System.out.println(temp);
+				
+	}
+
+}
+
